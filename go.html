@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: 'Press Start 2P', cursive;
+        }
+        body {
+            background-image: url('background.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .container {
+            position: relative;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            height: calc(100vh - 50px);
+        }
+
+        .image-left, .image-right {
+            animation: fallDown 1s ease-out;
+        }
+
+        .bubble {
+            position: absolute;
+            background: #FFFFFF;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+            right: calc(55% - 150px);
+            bottom: calc(50px + 34px + 20px);
+            opacity: 0;
+            font-size: 10px;
+            animation: fadeIn 2s ease-in-out 1s forwards;
+        }
+
+        .button {
+            position: absolute;
+            right: calc(55% - 10px);
+            bottom: calc(50px + 20px);
+            opacity: 0;
+            padding: 10px;
+            margin-top: 10px;
+            animation: fadeIn 2s ease-in-out 3s forwards;
+        }
+
+        @keyframes fallDown {
+            0% {
+                transform: translateY(-100%);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img class="image-left" src="farmer-stay.png" alt="Bapa" style="width: 100px;">
+        <img class="image-right" src="anak.png" alt="Anak" style="width: 34px;">
+        <div class="bubble">
+            "Anak ku tercinta masih kecil. <br>Aku akan melakukan apa saja<br> untuk memenuhi semua<br>kebutuhan anak kuh."
+        </div>
+        <button class="button" onclick="kerja()">Ayo Kerja</button>
+    </div>
+
+    <script>
+        function kerja() {
+            document.location.href = 'outside-home.html';
+        }
+
+    </script>
+</body>
+</html>

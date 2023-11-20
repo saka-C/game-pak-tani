@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Petani dan Pohon 1001 Manfaat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+    :root{
+        /* Color */
+        --text-color: #000000;
+        --text-light-color: #ffff;
+
+
+        /* transition */
+        --tran-01: all 0.1s ease;
+        --tran-02: all 0.2s ease;
+        --tran-03: all 0.3s ease;
+        --tran-04: all 0.4s ease;
+        --tran-05: all 0.5s ease;
+
+
+
+        }
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-image: url('index-bg.png');
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+            transition: opacity 0.5s ease;
+        }
+        .container.hidden {
+            opacity: 0;
+        }
+        .title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 2em;
+            color: #FF6C22;
+            text-shadow: 2px 2px 4px var(--text-color);
+            border-radius: 10px;
+        }
+        .play-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 20px 25px;
+            background-color: #FF6C22;
+            color: white;
+            border: none;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+        .play-button:before {
+            content: "▶";
+            font-size: 20px;
+        }
+        .play-button:hover {
+            background-color: var(--text-light-color); 
+            color: var(--text-color); 
+        }
+    </style>
+</head>
+<body>
+    <div class="audio-container">
+        <audio id="theme-song" loop autoplay>
+            <source src="background-theme-song.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+    <div class="container">
+        <h1 class="title">Pak Tani dan Pohon 1001 Manfaat</h1>
+        <button class="play-button"></button>
+    </div>
+    <script>
+        document.querySelector('.play-button').addEventListener('click', function() {
+            alert('Game dimulai!');
+        });
+
+        const playButton = document.querySelector('.play-button');
+        const container = document.querySelector('.container');
+
+        playButton.addEventListener('click', () => {
+            container.classList.add('hidden');
+            setTimeout(() => {
+                window.location.href = 'story-board.html';
+            }, 500); // Ubah angka 500 menjadi durasi transisi yang Anda inginkan (dalam milidetik)
+        });
+    </script>
+</html>

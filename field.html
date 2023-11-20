@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <title>Petani dan Pohon 1001 Manfaat</title>
+    <style>
+        :root {
+            /* Color */
+            --text-color: #000000;
+            --text-light-color: #ffff;
+            --primary-color: #E9B824;
+            --primary-dark-color: #daac23;
+            --secondary-color: #54B435;
+            --shadow-color: #0000004b;
+
+
+            /* transition */
+            --tran-01: all 0.1s ease;
+            --tran-02: all 0.2s ease;
+            --tran-03: all 0.3s ease;
+            --tran-04: all 0.4s ease;
+            --tran-05: all 0.5s ease;
+
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        body {
+            height: 100vh;
+            margin: 0;
+            background-color: var(--text-color);
+        }
+
+        .container {
+            text-align: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .container.hidden {
+            opacity: 0;
+        }
+
+        .bg {
+            width: 100%;
+        }
+
+        .storage {
+            background-color: var(--primary-color);
+            padding: 20px 25px;
+            border-radius: 20px;
+            border: 3px solid var(--text-color);
+        }
+
+        .storage:active {
+            transform: scale(0.9);
+        }
+
+        .storage img {
+            width: 40px;
+        }
+
+        #popupMenu {
+            z-index: 3;
+            display: none;
+            position: fixed;
+            width: 70%;
+            height: 50%;
+            top: -50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--primary-color);
+            border: 3px solid var(--text-color);
+            border-radius: 10px;
+            transition: top 0.5s ease;
+        }
+        h3 {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        #popupMenu.show {
+            top: 50%;
+        }
+
+        .box-container {
+            position: absolute;
+            top: 10%;
+            z-index: 2;
+        }
+
+        .box {
+            width: 5%;
+            height: 10%;
+            background-color: var(--shadow-color);
+            border: 3px dashed var(--primary-color);
+            margin: 10px;
+            border-radius: 10px;
+            display: none;
+            /* Sembunyikan kotak pada awal */
+        }
+
+        .box img {
+            width: 100px;
+            margin-top: -70px;
+        }
+
+        #actionButton {
+            padding: 10px 20px;
+            background-color: var(--secondary-color);
+            border-radius: 15px;
+            border: 3px solid var(--text-color);
+        }
+
+        #actionButton {
+            transition: transform 0.3s ease;
+        }
+
+        #actionButton:active {
+            transform: scale(0.9);
+        }
+
+        #actionButton img {
+            width: 40px;
+            pointer-events: none;
+        }
+
+        .btn-side {
+            display: flex;
+            gap: 20px;
+            position: fixed;
+            bottom: 7%;
+            left: 5%;
+        }
+
+        #coconutIndicator {
+            position: fixed;
+            top: 15%;
+            left: 3%;
+            color: var(--text-light-color);
+        }
+
+        #closeButton {
+            background: none;
+            border: none;
+            margin-top: 10px;
+            margin-right: 20px;
+        }
+
+        .content-popup {
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        .content-popup div {
+            display: flex;
+            justify-content: center;
+        }
+
+        .content-popup img {
+            width: 70px;
+            padding: 20px;
+            border: 3px solid var(--text-color);
+            border-radius: 20px;
+            background-color: var(--primary-dark-color);
+        }
+
+        .coconut {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        input{
+            padding: 8px 20px;
+            border: none;
+            border-radius: 5px;
+        }
+        input:focus{
+            outline: none;
+        }
+        .coconut button{
+            margin-top: 10px;
+            background-color: var(--secondary-color);
+            padding: 5px 10px;
+            font-weight: 700;
+            color: var(--text-light-color);
+            border: 2px solid var(--text-color);
+            border-radius: 5px;
+        }
+        .coconut-info {
+            display: flex;
+            flex-direction: column;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="outside-home.html" style="position: fixed; top: 5%; left: 3%; text-decoration: none; color: var(--text-color); background-color: var(--primary-color); padding: 10px; border: 3px solid var(--text-color); border-radius: 10px;">Back</a>
+    <div id="coconutIndicator" style="color: var(--text-color); background-color: var(--primary-color); padding: 10px; border-radius: 10px; border: 3px solid var(--text-color);">Siap Panen : 0</div>
+    <div class="container">
+        <img src="field.png" alt="" class="bg">
+    </div>
+    <div class="btn-side">
+        <button class="storage"><img src="storage.png" alt=""></button>
+        <button id="actionButton"><img src="pohon.png" alt=""></button>
+    </div>
+
+    <div id="popupMenu">
+        <button id="closeButton" style="color: var(--text-color); float: right; font-size: 28px; font-weight: bold; cursor: pointer;">&times;</button>
+        <div class="content-popup">
+            <div class="coconut">
+                <h3>Ambil Hasil Panen</h3>
+                <img src="coconut.png" alt="">
+                <div class="coconut-info">
+                    <input type="number" min="0" class="panen">
+                    <button class="harvest" style="color: var(--text-color); padding: 10px 20px;">Panen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="box1" class="box" style="position: absolute; top: 10%; left: 35%;"></div>
+    <div id="box2" class="box" style="position: absolute; top: 32%; left: 32%;"></div>
+    <div id="box3" class="box" style="position: absolute; top: 40%; left: 50%;"></div>
+    <div id="box4" class="box" style="position: absolute; top: 38%; left: 40%;"></div>
+    <div id="box5" class="box" style="position: absolute; top: 58%; left: 43%;"></div>
+    <div id="box6" class="box" style="position: absolute; top: 74%; left: 53%;"></div>
+    <div id="box7" class="box" style="position: absolute; top: 28%; left: 10%;"></div>
+    <div id="box8" class="box" style="position: absolute; top: 27%; left: 20%;"></div>
+    <div id="box9" class="box" style="position: absolute; top: 50%; left: 15%;"></div>
+    <div id="box10" class="box" style="position: absolute; top: 58%; left: 30%;"></div>
+    <div id="box11" class="box" style="position: absolute; top: 100%; left: 50%;"></div>
+    <div id="box12" class="box" style="position: absolute; top: 15%; left: 58%;"></div>
+    <div id="box13" class="box" style="position: absolute; top: 39%; left: 67%;"></div>
+    <div id="box14" class="box" style="position: absolute; top: 56%; left: 73%;"></div>
+    <div id="box15" class="box" style="position: absolute; top: 85%; left: 75%;"></div>
+    <div id="box16" class="box" style="position: absolute; top: 90%; left: 90%;"></div>
+
+    <script>
+        // Mengambil nilai totalCoconuts dari localStorage
+        var totalCoconuts = parseInt(localStorage.getItem('kelapaMentah')) || 0;
+
+        // Mendapatkan elemen HTML yang akan menampilkan totalCoconuts
+        var coconutIndicator = document.getElementById('coconutIndicator');
+
+        // Menetapkan totalCoconuts ke elemen HTML
+        coconutIndicator.textContent = 'Siap Panen: ' + totalCoconuts;
+
+        var storage = document.querySelector('.storage');
+        var popupMenu = document.getElementById('popupMenu');
+
+        storage.addEventListener('click', function () {
+            // Tampilkan popup menu
+            popupMenu.style.display = 'block';
+            setTimeout(function () {
+                popupMenu.classList.add('show');
+            }, 0);
+        });
+
+        closeButton.addEventListener('click', function () {
+            // Tutup popup menu
+            popupMenu.classList.remove('show');
+            setTimeout(function () {
+                popupMenu.style.display = 'none';
+            }, 500); // Sesuaikan dengan durasi transisi
+        });
+
+        var coconutInput = document.querySelector('.coconut input');
+        var harvestButton = document.querySelector('.coconut button');
+
+        harvestButton.addEventListener('click', function () {
+            var inputCount = parseInt(coconutInput.value);
+            var storedCount = parseInt(localStorage.getItem('jumlahKelapa')) || 0;
+            var totalCoconuts = parseInt(localStorage.getItem('kelapaMentah')) || 0;
+
+            // Validasi jumlah input dengan jumlah totalCoconuts
+            if (inputCount > totalCoconuts) {
+                alert('Maaf, kelapa tidak tersedia');
+                return;
+            }
+
+            // Kurangi jumlah totalCoconuts dengan jumlah input
+            totalCoconuts -= inputCount;
+
+            // Tambahkan jumlah input ke jumlahKelapa yang ada di localStorage
+            var newCount = storedCount + inputCount;
+            localStorage.setItem('jumlahKelapa', newCount);
+
+            // Update jumlah kelapaMentah di localStorage
+            localStorage.setItem('kelapaMentah', totalCoconuts);
+
+            // Reset nilai input
+            coconutInput.value = '0';
+
+            // Tampilkan pesan sukses
+            alert('Panen berhasil! Jumlah kelapa yang disimpan: ' + newCount);
+            coconutIndicator.textContent = 'Jumlah Kelapa: ' + totalCoconuts;
+        });
+
+        // untuk nambah pohon
+        var actionButton = document.getElementById('actionButton');
+        var boxes = document.querySelectorAll('.box');
+
+        actionButton.addEventListener('click', function () {
+            if (actionButton.children[0].src.endsWith('pohon.png')) {
+                // Tampilkan kotak dan ubah gambar tombol
+                boxes.forEach(function (box) {
+                    box.style.display = 'block';
+                });
+                actionButton.children[0].src = 'pohon-silang.png';
+            } else if (actionButton.children[0].src.endsWith('pohon-silang.png')) {
+                // Sembunyikan kotak yang belum memiliki gambar dan ubah gambar tombol
+                boxes.forEach(function (box) {
+                    if (!box.querySelector('img')) {
+                        box.style.display = 'none';
+                    }
+                });
+                actionButton.children[0].src = 'pohon.png';
+            }
+        });
+
+
+
+        boxes.forEach(function (box) {
+            box.addEventListener('click', function () {
+                // Jika kotak sudah memiliki gambar, tampilkan pesan peringatan dan hentikan fungsi
+                if (box.querySelector('img')) {
+                    alert('Tidak dapat menanam pohon di tempat ini');
+                    return;
+                }
+
+                // Tambahkan gambar ke kotak saat kotak diklik
+                if (actionButton.children[0].src.endsWith('pohon-silang.png')) {
+                    var img = document.createElement('img');
+                    img.src = 'pohon-ladang.png';
+                    box.appendChild(img);
+
+                    // Ubah background-color kotak menjadi transparent
+                    box.style.backgroundColor = 'transparent';
+                    box.style.border = 'none';
+
+                    // Mulai menghasilkan kelapa setiap 2 detik
+                    box.dataset.coconutInterval = setInterval(function () {
+                        var coconutCount = box.dataset.coconutCount || 0;
+                        coconutCount++;
+                        box.dataset.coconutCount = coconutCount;
+
+                        // Tambahkan kelapa yang dihasilkan ke jumlah total kelapa
+                        totalCoconuts = parseInt(localStorage.getItem('kelapaMentah')) || 0;
+                        totalCoconuts++;
+
+                        localStorage.setItem('kelapaMentah', totalCoconuts);
+
+                        // Perbarui indikator jumlah kelapa
+                        var coconutIndicator = document.getElementById('coconutIndicator');
+                        coconutIndicator.textContent = 'Jumlah Kelapa: ' + totalCoconuts;
+                    }, 3000);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

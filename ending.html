@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            background-image: url("sekolah.png");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .anak {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            opacity: 0;
+            animation: fade-in 1s ease-in-out forwards;
+        }
+
+        .text-awan {
+            background: linear-gradient(to bottom, #ffffff 0%, #ffffff 50%, #c0c0c0 50%, #c0c0c0 100%);
+            padding: 20px;
+            font-size: 18px;
+            color: black;
+            opacity: 0;
+            animation: fade-in 4s ease-in-out forwards;
+        }
+
+        
+
+
+        @keyframes fade-in {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img src="anakn-seragam-bg.png" alt="Gambar Anak dalam Seragam" class="anak">
+    </div>
+    <div class="text-awan">
+        Akhirnya sang anak bisa sekolah berkat kerja keras ayahnya sebagai seorang petani kelapa. Tamat......
+    </div>
+</body>
+
+</html>

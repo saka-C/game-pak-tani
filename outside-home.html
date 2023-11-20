@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petani dan Pohon 1001 Manfaat</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Color */
+            --text-color: #000000;
+            --text-light-color: #ffff;
+            --primary-color: #E9B824;
+            --secondary-color: #54B435;
+
+
+            /* transition */
+            --tran-01: all 0.1s ease;
+            --tran-02: all 0.2s ease;
+            --tran-03: all 0.3s ease;
+            --tran-04: all 0.4s ease;
+            --tran-05: all 0.5s ease;
+
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        body {
+            height: 100vh;
+            margin: 0;
+            background-color: var(--text-color);
+        }
+
+        .container {
+            text-align: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .container.hidden {
+            opacity: 0;
+        }
+
+        #farmer {
+            width: 50px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+        }
+
+        .btn-in button {
+            position: absolute;
+            top: 60%;
+            left: 45%;
+            background-color: var(--primary-color);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 400;
+            font-size: 13px;
+            border: 2px solid var(--text-color);
+            color: var(--text-color);
+            box-shadow: 0 2px 4px var(--primary-color);
+        }
+
+        .bg {
+            width: 100%;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            z-index: 1000;
+        }
+
+        #closeButton {
+            padding: 5px 10px;
+            border-radius: 50px;
+            margin: 10px;
+            border: 3px solid var(--text-color);
+            font-weight: 700;
+            background-color: var(--text-light-color);
+        }
+
+        #popupMenu {
+            z-index: 3;
+            display: none;
+            position: fixed;
+            width: 70%;
+            height: 40%;
+            top: -50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--primary-color);
+            border: 3px solid var(--text-color);
+            border-radius: 10px;
+            transition: top 0.5s ease;
+        }
+
+        #popupMenu.show {
+            top: 50%;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .challenge {
+            position: fixed;
+            top: 5%;
+            right: 2%;
+            font-size: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            border-radius: 10px;
+            border: 3px solid var(--text-color);
+            color: var(--text-color);
+            background-color: var(--primary-color);
+        }
+
+        .indikator {
+            position: fixed;
+            top: 5%;
+            left: 2%;
+            background-color: var(--primary-color);
+            padding: 10px;
+            padding-right: 17px;
+            border-radius: 10px;
+            border: 3px solid var(--text-color);
+            font-size: 10px;
+        }
+
+        #coconutCount,
+        #perahuCount,
+        #uangCount {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #coconutCount img,
+        #perahuCount img,
+        #uangCount img {
+            width: 30px;
+            padding: 10px;
+        }
+
+        #challengeModal {
+            z-index: 3;
+            display: none;
+            position: fixed;
+            width: 70%;
+            top: -50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--primary-color);
+            border: 3px solid var(--text-color);
+            border-radius: 10px;
+            transition: top 0.5s ease;
+            padding: 20px;
+        }
+
+        #challengeModal.show {
+            top: 50%;
+
+        }
+
+        .challengeContent {
+            background-color: var(--primary-color);
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        li {
+            background-color: var(--text-light-color);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+        }
+
+        li p {
+            font-size: 10px;
+            margin-top: 10px;
+        }
+
+        li button {
+            background-color: var(--secondary-color);
+            padding: 10px 20px;
+            margin-top: 10px;
+            border-radius: 10px;
+            border: 2px solid var(--text-color);
+        }
+
+        .centered-store {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img src="outside.png" alt="" class="bg">
+        <img id="farmer" src="farmer-left.png" style="position:absolute;">
+        <div id="blockade1" style="position:absolute; top:0%; left:0%; width:5%; height:100%;"></div>
+        <div id="blockade2" style="position:absolute; top:0%; left:95%; width:5%; height:100%;"></div>
+        <div id="blockade3" style="position:absolute; top:0%; left:0%; width:100%; height:10%;"></div>
+        <div id="blockade4" style="position:absolute; bottom:-15%; left:0%; width:100%; height:1%;"></div>
+        <div id="blockade5" style="position:absolute; top:78%; left:0%; width:32%; height:20%;"></div>
+        <div id="blockade6" style="position:absolute; top:78%; left:39%; width:60%; height:20%;"></div>
+        <div id="blockade7" style="position:absolute; top:0%; left:0%; width:100%; height:35%;"></div>
+        <div id="blockade8" style="position:absolute; top:40%; left:60%; width:17%; height:10%;"></div>
+        <div id="blockade9" style="position:absolute; top:58.9%; left:82%; width:6%; height:3%;"></div>
+        <div id="blockade10" style="position:absolute; top:40%; left:20%; width:3%; height:10%;"></div>
+        <div id="blockade11" style="position:absolute; top:35%; left:84%; width:5%; height:2%;"></div>
+        <div id="blockade12" style="position:absolute; top:50%; left:16%; width:10%; height:5%;"></div>
+
+        <!-- Tambahkan box -->
+        <div id="home" style="position:absolute; top:42%; left:60%; width:15%; height:10%;"></div>
+        <div id="workshop" style="position:absolute; top:50%; left:15%; width:15%; height:10%;"></div>
+        <div id="store" style="position:absolute; top:60%; left:80%; width:10%; height:10%;"></div>
+        <div id="field" style="position:absolute; top:100%; left:0%; width:100%; height:20%;"></div>
+
+        <!-- Tambahkan tombol -->
+        <div class="btn-in">
+            <button id="btnHome" style="display:none;">Home</button>
+            <button id="btnWorkshop" style="display:none;">Workshop</button>
+            <button id="btnStore" style="display:none;" class="store">Store</button>
+            <button id="btnField" style="display:none;">Field</button>
+        </div>
+    </div>
+
+
+    <div id="popupMenu">
+        <button id="closeButton">x</button>
+        <h1>Ambil Hasil Panen</h1>
+        <div class="content-popup">
+            <div class="coconut"><img src="coconut.png" alt=""></div>
+            <div class="leaves"><img src="leaves.png" alt=""></div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="storeModal"
+        style="display: none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: hidden; background-color: rgba(0,0,0,0.4);">
+        <div
+            style="background-color: var(--primary-color); margin: 15% auto; border: 3px solid var(--text-color); padding: 20px; border-radius: 20px; width: 50%;">
+            <span id="closeModal"
+                style="color: var(--text-color); float: right; font-size: 28px; font-weight: bold; cursor: pointer;">&times;</span>
+            <div class="centered-store">
+                <p>Jual Hasil Kerajinan</p>
+                <p
+                    style="background-color: var(--text-light-color); padding: 20px; margin: 10px; border-radius: 10px; font-size: 12px; display: flex; justify-content: center; align-items: center;">
+                    <img src="toy.png" alt="" style="width: 80px;"> = $15
+                </p>
+                <p id="modalPerahuCount" style="font-size: 13px; margin-bottom: 10px;">Jumlah Perahu: 0</p>
+                <input type="text" id="sellInput" placeholder="Jumlah perahu yang akan di jual"
+                    style="padding: 10px 20px; border-radius: 10px; outline: none; border: none;">
+                <button id="sell"
+                    style="padding: 10px 60px; margin-top: 10px; border: 2px solid var(--text-color); background-color: var(--secondary-color); border-radius: 10px;">Jual</button>
+            </div>
+        </div>
+    </div>
+    <!-- Tambahkan elemen <p> untuk menampilkan jumlah panen kelapa -->
+    <div class="indikator">
+        <p id="coconutCount" style="color: var(--text-color);">: 0</p>
+        <p id="perahuCount" style="color: var(--text-color);">: 0</p>
+        <p id="uangCount" style="color: var(--text-color);">: 0</p>
+    </div>
+
+    <!-- Modal untuk menampilkan tantangan -->
+    <div id="challengeModal">
+        <div class="challengeContent">
+            <span id="closeChallengeModal"
+                style="color: var(--text-color); float: right; font-size: 28px; font-weight: bold; cursor: pointer;">&times;</span>
+            <ul id="challengeList"></ul>
+        </div>
+    </div>
+
+    <button class="challenge"><i class='bx bxs-food-menu'></i></button>
+    <script>
+        if (!localStorage.getItem('challenges')) {
+            var challenges = [
+                { title: 'Bayar Uang Daftar Sekolah Anak', description: 'anak mu akan masuk sekolah dan akan terkena biaya 500', cost: 500 },
+                { title: 'Bayar Seragam Sekolah', description: 'anak mu butuh seragam untuk bersekolah dengan biaya 1000', cost: 1000 },
+                { title: 'Bayar Uang SPP', description: 'anak mu harus membayar uang spp dengan biaya 3000', cost: 3000 }
+            ];
+
+            localStorage.setItem('challenges', JSON.stringify(challenges));
+        }
+
+        console.log('ini adalah challenge : ' + localStorage.getItem('challenges'));
+
+        var challenge = document.querySelector('.challenge');
+        var challengeModal = document.getElementById('challengeModal');
+        var closeChallengeModal = document.getElementById('closeChallengeModal');
+        var challengeList = document.getElementById('challengeList');
+
+        challenge.addEventListener('click', function () {
+            // Kosongkan daftar tantangan
+            challengeList.innerHTML = '';
+
+            // Ambil tantangan dari localStorage dan ubah menjadi array
+            var challenges = JSON.parse(localStorage.getItem('challenges')) || [];
+
+            // Buat list
+            for (var i = 0; i < challenges.length; i++) {
+                var listItem = document.createElement('li');
+
+                // Tambahkan tag h1 ke dalam list item
+                var h3 = document.createElement('h3');
+                h3.textContent = challenges[i].title;
+                listItem.appendChild(h3);
+
+                // Tambahkan deskripsi ke dalam list item
+                var p = document.createElement('p');
+                p.textContent = challenges[i].description;
+                listItem.appendChild(p);
+
+                // Tambahkan tombol ke dalam list item
+                var button = document.createElement('button');
+                button.textContent = 'Bayar ' + challenges[i].cost;
+                button.addEventListener('click', handleButtonClick(challenges[i], listItem));
+                listItem.appendChild(button);
+
+                // Tambahkan list item ke dalam list
+                challengeList.appendChild(listItem);
+            }
+
+            // Tampilkan popup menu
+            challengeModal.style.display = 'block';
+            setTimeout(function () {
+                challengeModal.classList.add('show');
+            }, 0);
+        });
+
+        function handleButtonClick(challenge, listItem) {
+            return function () {
+                var storedUang = parseInt(localStorage.getItem('uang')) || 0;
+
+                if (storedUang < challenge.cost) {
+                    alert('Maaf, uang Anda belum cukup');
+                } else {
+                    storedUang -= challenge.cost;
+                    localStorage.setItem('uang', storedUang);
+
+                    listItem.remove();
+
+                    var storedChallenges = JSON.parse(localStorage.getItem('challenges'));
+                    var index = storedChallenges.findIndex(function (ch) {
+                        return ch.title === challenge.title;
+                    });
+                    storedChallenges.splice(index, 1);
+                    localStorage.setItem('challenges', JSON.stringify(storedChallenges));
+
+                    alert('Selamat, Anda telah menyelesaikan tantangan!');
+
+                    // Jika semua tantangan telah diselesaikan, arahkan ke halaman ending.html
+                    if (storedChallenges.length === 0) {
+                        window.location.href = 'ending.html';
+                    }
+                }
+            }
+        }
+
+        closeChallengeModal.addEventListener('click', function () {
+            // Tutup popup menu
+            challengeModal.classList.remove('show');
+            setTimeout(function () {
+                challengeModal.style.display = 'none';
+            }, 500); // Sesuaikan dengan durasi transisi
+        });
+
+        var store = document.querySelector('.store');
+        var storeModal = document.getElementById('storeModal');
+        var closeModal = document.getElementById('closeModal');
+        var perahuCount = document.getElementById('perahuCount');
+        var totalPerahu = parseInt(localStorage.getItem('perahu')) || 0;
+        perahuCount.textContent = 'Jumlah Perahu: ' + totalPerahu;
+
+
+        store.addEventListener('click', function () {
+            // Tampilkan modal
+            storeModal.style.display = 'block';
+
+            // Mengambil elemen <p> dengan id "modalPerahuCount"
+            var modalPerahuCount = document.getElementById('modalPerahuCount');
+
+            // Mengambil nilai perahu dari localStorage
+            var totalPerahu = parseInt(localStorage.getItem('perahu')) || 0;
+
+            // Memperbarui teks di dalam elemen <p> dengan nilai perahu
+            modalPerahuCount.textContent = 'Jumlah Perahu: ' + totalPerahu;
+            var perahuCount = document.getElementById('perahuCount');
+            var totalPerahu = parseInt(localStorage.getItem('perahu')) || 0;
+            perahuCount.innerHTML = '<img src="toy.png" alt="Jumlah Perahu"> : ' + totalPerahu;
+        });
+
+        closeModal.addEventListener('click', function () {
+            // Tutup modal
+            storeModal.style.display = 'none';
+        });
+
+        window.onclick = function (event) {
+            // Tutup modal jika user mengklik di luar modal
+            if (event.target == storeModal) {
+                storeModal.style.display = 'none';
+            }
+        };
+
+        // Mengambil elemen <p> dengan id "coconutCount"
+        var coconutCount = document.getElementById('coconutCount');
+
+        // Mengecek apakah 'uang' sudah ada di localStorage
+        if (!localStorage.getItem('uang')) {
+            // Jika tidak, set nilai awal ke 300
+            localStorage.setItem('uang', 0);
+        }
+
+        // Mengambil elemen <p> dengan id "uangCount"
+        var uangCount = document.getElementById('uangCount');
+
+        // Mengambil nilai uang dari localStorage
+        var totalUang = parseInt(localStorage.getItem('uang')) || 0;
+
+        // Membuat elemen img untuk uang
+        var imgUang = document.createElement('img');
+        imgUang.src = 'money.png'; // URL gambar Anda
+        imgUang.alt = 'Gambar Uang';
+
+        // Menghapus semua child nodes dari uangCount
+        while (uangCount.firstChild) {
+            uangCount.firstChild.remove();
+        }
+
+        // Menambahkan gambar ke uangCount
+        uangCount.appendChild(imgUang);
+
+        // Menambahkan teks jumlah uang setelah gambar
+        uangCount.appendChild(document.createTextNode(' : ' + totalUang));
+
+        // Mengambil elemen <p> dengan id "perahuCount"
+        var perahuCount = document.getElementById('perahuCount');
+
+        // Mengambil nilai perahu dari localStorage
+        var totalPerahu = parseInt(localStorage.getItem('perahu')) || 0;
+
+        // Membuat elemen img untuk perahu
+        var imgPerahu = document.createElement('img');
+        imgPerahu.src = 'toy.png'; // URL gambar Anda
+        imgPerahu.alt = 'Gambar Perahu';
+
+        // Menghapus semua child nodes dari perahuCount
+        while (perahuCount.firstChild) {
+            perahuCount.firstChild.remove();
+        }
+
+        // Menambahkan gambar ke perahuCount
+        perahuCount.appendChild(imgPerahu);
+
+        // Menambahkan teks jumlah perahu setelah gambar
+        perahuCount.appendChild(document.createTextNode(' : ' + totalPerahu));
+
+        // Mengambil elemen <p> dengan id "coconutCount"
+        var coconutCount = document.getElementById('coconutCount');
+
+        // Mengambil nilai jumlah panen kelapa dari localStorage
+        var totalCoconuts = parseInt(localStorage.getItem('jumlahKelapa')) || 0;
+
+        // Membuat elemen img untuk kelapa
+        var imgKelapa = document.createElement('img');
+        imgKelapa.src = 'coconut.png'; // URL gambar Anda
+        imgKelapa.alt = 'Gambar Kelapa';
+
+        // Menghapus semua child nodes dari coconutCount
+        while (coconutCount.firstChild) {
+            coconutCount.firstChild.remove();
+        }
+
+        // Menambahkan gambar ke coconutCount
+        coconutCount.appendChild(imgKelapa);
+
+        // Menambahkan teks jumlah kelapa setelah gambar
+        coconutCount.appendChild(document.createTextNode(' : ' + totalCoconuts));
+
+
+
+        setTimeout(function () {
+            rightCornerPopup.style.display = 'none';
+        }, 5000);
+        var farmer = document.getElementById('farmer');
+        var blockades = [
+            document.getElementById('blockade1'),
+            document.getElementById('blockade2'),
+            document.getElementById('blockade3'),
+            document.getElementById('blockade4'),
+            document.getElementById('blockade5'),
+            document.getElementById('blockade6'),
+            document.getElementById('blockade7'),
+            document.getElementById('blockade8'),
+            document.getElementById('blockade9'),
+            document.getElementById('blockade10'),
+            document.getElementById('blockade11'),
+            document.getElementById('blockade12')
+        ];
+
+        var speed = 2;
+        var body = document.body;
+        var direction = null;
+        var intervalId = null;
+
+        // Tambahkan box ke dalam array
+        var boxes = [
+            document.getElementById('home'),
+            document.getElementById('workshop'),
+            document.getElementById('store'),
+            document.getElementById('field')
+        ];
+
+        // Tambahkan tombol ke dalam array
+        var buttons = [
+            document.getElementById('btnHome'),
+            document.getElementById('btnWorkshop'),
+            document.getElementById('btnStore'),
+            document.getElementById('btnField')
+        ];
+        // Tambahkan event listener untuk setiap tombol
+        buttons[0].addEventListener('click', function () {
+            window.location.href = 'home.html'; // Ganti dengan URL halaman tujuan Anda
+        });
+        buttons[1].addEventListener('click', function () {
+            window.location.href = 'workshop.html'; // Ganti dengan URL halaman tujuan Anda
+        });
+        buttons[3].addEventListener('click', function () {
+            window.location.href = 'field.html'; // Ganti dengan URL halaman tujuan Anda
+        });
+
+        window.addEventListener('keydown', function (event) {
+            if (intervalId !== null) { // Jika ada interval yang sedang berjalan, hentikan dulu
+                clearInterval(intervalId);
+            }
+            switch (event.key) {
+                case "ArrowUp":
+                case "w":
+                    direction = 'up';
+                    break;
+                case "ArrowDown":
+                case "s":
+                    direction = 'down';
+                    break;
+                case "ArrowLeft":
+                case "a":
+                    direction = 'left';
+                    break;
+                case "ArrowRight":
+                case "d":
+                    direction = 'right';
+                    break;
+            }
+            intervalId = setInterval(move, 1000 / 155); // Mulai interval baru
+        });
+
+        window.addEventListener('keyup', function (event) {
+            clearInterval(intervalId); // Hentikan interval ketika tombol dilepas
+            intervalId = null;
+            direction = null;
+        });
+        function move() {
+            var newX, newY;
+            var container = document.querySelector('.container');
+            var bg = document.querySelector('.bg');
+            switch (direction) {
+                case 'up':
+                    newY = farmer.offsetTop - speed;
+                    if (newY >= 0 && !isCollidingWithAnyBlockade(newY, farmer.offsetLeft)) {
+                        farmer.style.top = newY + "px";
+                    }
+                    break;
+                case 'down':
+                    newY = farmer.offsetTop + speed;
+                    if (newY <= (bg.offsetHeight - farmer.offsetHeight) && !isCollidingWithAnyBlockade(newY, farmer.offsetLeft)) {
+                        farmer.style.top = newY + "px";
+                    }
+                    break;
+                case 'left':
+                    newX = farmer.offsetLeft - speed;
+                    if (newX >= 0 && !isCollidingWithAnyBlockade(farmer.offsetTop, newX)) {
+                        farmer.style.left = newX + "px";
+                        farmer.src = "farmer-left.png"; // mengubah gambar saat bergerak ke kiri
+                    }
+                    break;
+                case 'right':
+                    newX = farmer.offsetLeft + speed;
+                    if (newX <= (bg.offsetWidth - farmer.offsetWidth) && !isCollidingWithAnyBlockade(farmer.offsetTop, newX)) {
+                        farmer.style.left = newX + "px";
+                        farmer.src = "farmer-right.png"; // mengubah gambar saat bergerak ke kanan
+                    }
+                    break;
+            }
+            for (var i = 0; i < boxes.length; i++) {
+                if (isColliding(farmer.offsetTop, farmer.offsetLeft, boxes[i])) {
+                    buttons[i].style.display = 'block'; // Tampilkan tombol
+                } else {
+                    buttons[i].style.display = 'none'; // Sembunyikan tombol
+                }
+            }
+        }
+
+        window.addEventListener('keyup', function (event) {
+            clearInterval(intervalId); // Hentikan interval ketika tombol dilepas
+            intervalId = null;
+            direction = null;
+            farmer.src = "farmer-stay.png"; // mengubah gambar kembali ke posisi diam saat tombol dilepas
+        });
+
+        window.addEventListener('keyup', function (event) {
+            clearInterval(intervalId); // Hentikan interval ketika tombol dilepas
+            intervalId = null;
+            direction = null;
+            farmer.src = "farmer-stay.png"; // mengubah gambar kembali ke posisi diam saat tombol dilepas
+        });
+
+        function isCollidingWithAnyBlockade(top, left) {
+            for (var i = 0; i < blockades.length; i++) {
+                if (isColliding(top, left, blockades[i])) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function isColliding(top, left, blockade) {
+            var rect1 = { x: left, y: top, width: farmer.offsetWidth, height: farmer.offsetHeight };
+            var rect2 = { x: blockade.offsetLeft, y: blockade.offsetTop, width: blockade.offsetWidth, height: blockade.offsetHeight };
+            return !(rect1.y + rect1.height < rect2.y ||
+                rect1.y > rect2.y + rect2.height ||
+                rect1.x + rect1.width < rect2.x ||
+                rect1.x > rect2.x + rect2.width);
+        }
+
+        var sellButton = document.getElementById('sell');
+        var sellInput = document.getElementById('sellInput');
+
+        sellButton.addEventListener('click', function () {
+            var inputCount = parseInt(sellInput.value);
+            var storedPerahu = parseInt(localStorage.getItem('perahu')) || 0;
+            var storedUang = parseInt(localStorage.getItem('uang')) || 0;
+
+            // Validasi jumlah input dengan jumlah storedPerahu
+            if (inputCount > storedPerahu) {
+                alert('Maaf, perahu tidak cukup');
+                return;
+            }
+
+            // Kurangi jumlah storedPerahu dengan jumlah input
+            storedPerahu -= inputCount;
+            localStorage.setItem('perahu', storedPerahu);
+
+            // Tambahkan uang sebanyak 15 untuk setiap perahu yang dijual
+            storedUang += inputCount * 15;
+            localStorage.setItem('uang', storedUang);
+
+            // Reset nilai input
+            sellInput.value = '0';
+
+            var uangCount = document.getElementById('uangCount');
+            var img = document.createElement('img');
+            img.src = 'money.png';
+
+            uangCount.innerHTML = '';
+            uangCount.appendChild(img);
+
+            var modalPerahuCount = document.getElementById('perahuCount');
+
+            // Tampilkan pesan sukses
+            alert('Penjualan berhasil! Jumlah uang sekarang: ' + storedUang);
+            modalPerahuCount.innerHTML = '<img src="toy.png" alt="Jumlah Uang">' + storedPerahu;
+            uangCount.innerHTML = '<img src="money.png" alt="Jumlah Uang">' + storedUang;
+        });
+
+
+    </script>
+</body>
+
+</html>

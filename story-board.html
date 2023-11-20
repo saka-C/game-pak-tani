@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            font-family: 'Press Start 2P', cursive;
+        }
+        body {
+            background-image: url('background.png');
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: white;
+            font-size: 2em;
+            text-align: center;
+        }
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #text {
+            color: white;
+            height: 100%;
+            width: 70%;
+            margin: 0 auto;
+        }
+        .typing {
+            border-right: .2em solid;
+            overflow: hidden;
+        }
+        button {
+            display: none;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="text" class="typing"></div>
+        <button id="next">Next</button>
+    </div>
+
+    <script>
+        var text1 = 'Disebuah desa ada seorang Petani Kelapa yang memiliki satu orang anak laki laki';
+        var text2 = 'PAK TANI harus menghidupi anak nya yang masih sekolah dan memenuhi semua kebutuhan anaknya';
+        var speed = 50;
+        var i = 0;
+        var button = document.getElementById('next');
+        var div = document.getElementById('text');
+
+        function typeWriter(text, nextText) {
+            if (i < text.length) {
+                div.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, speed, text, nextText);
+            } else {
+                button.style.display = 'block';
+                if (!nextText) {
+                    button.addEventListener('click', function() {
+                        window.location.href = 'go.html';
+                    });
+                }
+            }
+        }
+
+        typeWriter(text1, text2);
+
+        button.addEventListener('click', function() {
+            div.innerHTML = '';
+            i = 0;
+            button.style.display = 'none';
+            typeWriter(text2);
+        });
+    </script>
+</body>
+</html>
