@@ -1,7 +1,7 @@
 > # PAK TANI & POHON 1001 MANFAAT
 > Here’s a story about a farmer who works in his coconut field and sells the coconuts so that his child can go to school. The farmer has to make crafts from the leftover coconut shells to sell and earn money. In this game, the farmer must complete quests so that his child can attend school.
 
-#preview
+# preview
 > ### story board
 > ![image](https://github.com/saka-C/game-pak-tani/assets/111035568/63034928-cf37-431e-a7f4-c0f95fb53124)
 
